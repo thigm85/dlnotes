@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "01_display_images.html",
+    "href": "01_display_images.html",
+    "title": "Display images",
+    "section": "",
+    "text": "from fastai.vision.all import *"
+  },
+  {
+    "objectID": "01_display_images.html#search-image-urls",
+    "href": "01_display_images.html#search-image-urls",
+    "title": "Display images",
+    "section": "Search image URLs",
+    "text": "Search image URLs\n\n!pip install -Uq duckduckgo_search\n\n\nfrom duckduckgo_search import ddg_images\nfrom fastcore.all import *\n\ndef search_images(term, max_images=30):\n    print(f\"Searching for '{term}'\")\n    return L(ddg_images(term, max_results=max_images)).itemgot('image')\n\n\nurls = search_images(\"cat\", max_images=10)\n\nSearching for 'cat'\n\n\n\nprint(f\"Number of URLs: {len(urls)}\")\nprint(urls[0])\n\nNumber of URLs: 10\nhttps://wallup.net/wp-content/uploads/2019/09/1667-beautiful-gray-cat.jpg"
+  },
+  {
+    "objectID": "01_display_images.html#download-images-to-a-temp-folder",
+    "href": "01_display_images.html#download-images-to-a-temp-folder",
+    "title": "Display images",
+    "section": "Download images to a temp folder",
+    "text": "Download images to a temp folder\n\nimport tempfile\n\ntemp_folder = tempfile.TemporaryDirectory()\ntemp_path = Path(temp_folder.name)\ndownload_images(dest=temp_path, urls=urls)\n\n\nprint(f\"Number of images: {len(temp_path.ls())}\")\nprint(f\"Sample: {temp_path.ls()[0]}\")\n\nNumber of images: 8\nSample: /var/folders/6r/7z6k6kj96wvf3qhq_xqpzy380000gn/T/tmpguam1f7p/4e787d39-7f6a-4c26-be66-49c40a331d7b.jpg"
+  },
+  {
+    "objectID": "01_display_images.html#display-images-on-a-grid",
+    "href": "01_display_images.html#display-images-on-a-grid",
+    "title": "Display images",
+    "section": "Display images on a grid",
+    "text": "Display images on a grid\n\nimage_files = temp_path.ls()[0:6]\ncaptions = [f\"Cat image {x}\" for x in range(len(image_files))]\n\n\nshow_images(\n    ims=[\n        PILImage.create(image_file).reshape(224,224) \n        for image_file in temp_path.ls()\n    ],\n    titles=captions,\n    nrows=2,\n    ncols=3,\n    suptitle='Cats',  \n)"
+  },
+  {
+    "objectID": "01_display_images.html#cleanup",
+    "href": "01_display_images.html#cleanup",
+    "title": "Display images",
+    "section": "Cleanup",
+    "text": "Cleanup\n\ntemp_folder.cleanup()"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Deep Learning notes",
+    "section": "",
+    "text": "pip install dlnotes"
+  }
+]
